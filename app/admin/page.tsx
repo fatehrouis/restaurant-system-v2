@@ -66,17 +66,8 @@ export default function AdminPage() {
     <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="min-h-screen bg-gray-50">
       <div className="bg-orange-500 text-white text-center py-6 mb-6">
         <h1 className="text-3xl font-bold text-white">{t.admin}</h1>
-        <div className="flex gap-2 justify-center mt-2">
-          {(['ar', 'fr', 'en'] as const).map(l => (
-            <button key={l} onClick={() => setLang(l)}
-              className={`px-3 py-1 rounded-full text-sm font-bold ${lang === l ? 'bg-white text-orange-500' : 'bg-orange-400 text-white'}`}>
-              {l === 'ar' ? 'ع' : l === 'fr' ? 'Fr' : 'En'}
-            </button>
-          ))}
-        </div>
       </div>
 
-      {/* تبويبات */}
       <div className="flex max-w-2xl mx-auto px-4 gap-2 mb-4">
         <button onClick={() => setTab('menu')}
           className={`flex-1 py-2 rounded-xl font-bold ${tab === 'menu' ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 shadow'}`}>
@@ -92,33 +83,33 @@ export default function AdminPage() {
 
         {tab === 'settings' && (
           <div className="bg-white rounded-2xl shadow p-5 mb-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">{t.settings}</h2>
+            <h2 className="text-xl font-bold text-gray-800 mb-6">{t.settings}</h2>
 
-            {/* اللغة */}
             <p className="font-bold text-gray-700 mb-2">{t.saveLanguage}:</p>
-            <div className="flex gap-2 mb-4">
+            <div className="flex gap-2 mb-6">
               {(['ar', 'fr', 'en'] as const).map(l => (
                 <button key={l} onClick={() => setLang(l)}
-                  className={`flex-1 py-2 rounded-xl font-bold ${lang === l ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                  className={`flex-1 py-3 rounded-xl font-bold text-lg ${lang === l ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}`}>
                   {l === 'ar' ? 'عربي' : l === 'fr' ? 'Français' : 'English'}
                 </button>
               ))}
             </div>
 
-            {/* العملة */}
             <p className="font-bold text-gray-700 mb-2">{t.saveCurrency}:</p>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="grid grid-cols-4 gap-2 mb-6">
               {currencies.map(c => (
                 <button key={c.code} onClick={() => setCurrency(c)}
-                  className={`px-3 py-1 rounded-full text-sm font-bold ${currency.code === c.code ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}`}>
-                  {c.flag} {c.code}
+                  className={`py-2 px-1 rounded-xl text-sm font-bold flex flex-col items-center gap-1 ${currency.code === c.code ? 'bg-orange-500 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                  <span className="text-xl">{c.flag}</span>
+                  <span>{c.code}</span>
+                  <span className="text-xs">{c.symbol}</span>
                 </button>
               ))}
             </div>
 
             <button onClick={saveSettings}
-              className="w-full bg-green-500 text-white py-3 rounded-xl font-bold text-lg">
-              {saved ? t.saved : t.saveCurrency + ' / ' + t.saveLanguage}
+              className="w-full bg-green-500 text-white py-4 rounded-xl font-bold text-xl">
+              {saved ? '✓ ' + t.saved : t.saveCurrency + ' & ' + t.saveLanguage}
             </button>
           </div>
         )}
